@@ -104,6 +104,7 @@ providers:
     network: foobar
     useBindPortIP: true
     watch: true
+    autoRouter: true
     defaultRule: foobar
     username: foobar
     password: foobar
@@ -121,6 +122,7 @@ providers:
     network: foobar
     useBindPortIP: true
     watch: true
+    autoRouter: true
     defaultRule: foobar
     username: foobar
     password: foobar
@@ -212,6 +214,7 @@ providers:
     stale: true
     cache: true
     exposedByDefault: true
+    autoRouter: true
     defaultRule: foobar
     connectAware: true
     connectByDefault: true
@@ -224,6 +227,7 @@ providers:
       - foobar
       - foobar
   nomad:
+    autoRouter: true
     defaultRule: foobar
     constraints: foobar
     endpoint:
@@ -251,6 +255,7 @@ providers:
     exposedByDefault: true
     refreshSeconds: 42
     defaultRule: foobar
+    autoRouter: true
     clusters:
       - foobar
       - foobar
