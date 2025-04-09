@@ -17,6 +17,7 @@ type namedHandler struct {
 	name     string
 	weight   float64
 	deadline float64
+	headers  map[string]string
 }
 
 // Balancer is a WeightedRoundRobin load balancer based on Earliest Deadline First (EDF).
@@ -203,6 +204,13 @@ func (b *Balancer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	// Set custom headers
+	if server != nil {
+		for key, value := range server.headers {
+			req.Header.Set(key, value)
+		}
+	}
+
 	if b.sticky != nil {
 		if err := b.sticky.WriteStickyCookie(rw, server.name); err != nil {
 			log.Error().Err(err).Msg("Error while writing sticky cookie")
@@ -214,12 +222,12 @@ func (b *Balancer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 // AddServer adds a handler with a server.
 func (b *Balancer) AddServer(name string, handler http.Handler, server dynamic.Server) {
-	b.Add(name, handler, server.Weight, server.Fenced)
+	b.Add(name, handler, server.Weight, server.Fenced, nil)
 }
 
 // Add adds a handler.
 // A handler with a non-positive weight is ignored.
-func (b *Balancer) Add(name string, handler http.Handler, weight *int, fenced bool) {
+func (b *Balancer) Add(name string, handler http.Handler, weight *int, fenced bool, headers map[string]string) {
 	w := 1
 	if weight != nil {
 		w = *weight
@@ -229,7 +237,7 @@ func (b *Balancer) Add(name string, handler http.Handler, weight *int, fenced bo
 		return
 	}
 
-	h := &namedHandler{Handler: handler, name: name, weight: float64(w)}
+	h := &namedHandler{Handler: handler, name: name, weight: float64(w), headers: headers}
 
 	b.handlersMu.Lock()
 	h.deadline = b.curDeadline + 1/h.weight
