@@ -34,7 +34,7 @@ Pointing Traefik at your orchestrator should be the _only_ configuration step yo
 
 :warning: Please be aware that the old configurations for Traefik v1.x are NOT compatible with the v2.x config as of now. If you're running v2, please ensure you are using a [v2 configuration](https://doc.traefik.io/traefik/).
 
-## Overview
+## Overview 
 
 Imagine that you have deployed a bunch of microservices with the help of an orchestrator (like Swarm or Kubernetes) or a service registry (like etcd or consul).
 Now you want users to access these microservices, and you need a reverse proxy.
