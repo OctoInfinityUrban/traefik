@@ -44,7 +44,7 @@ In an environment where you add, remove, kill, upgrade, or scale your services _
 
 **This is when Traefik can help you!**
 
-Traefik listens to your service registry/orchestrator API and instantly generates the routes so your microservices are connected to the outside world -- without further intervention from your part. 
+Traefik listens to your service registry/orchestrator API anvd instantly generates the routes so your microservices are connected to the outside world -- without further intervention from your part. 
 
 **Run Traefik and let it do the work for you!** 
 _(But if you'd rather configure some of your routes manually, Traefik supports that too!)_
