@@ -1,4 +1,4 @@
-[run]
+Version 3, [run]
   timeout = "10m"
   skip-files = []
   skip-dirs = [
